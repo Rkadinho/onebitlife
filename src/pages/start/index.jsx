@@ -1,14 +1,16 @@
 import React from "react";
-import { View } from "react-native";
-import { ScrollView, StyleSheet } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+
+import LifeStatus from "../../components/common/lifeStatus";
 
 export default function Start() {
 
   return(
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{alignItems: 'center'}}>
-          <Image source={require("../../assets/icons/logo3.png")} style={styles.logo}/>
+      <ScrollView style={styles.scroll}  showsVerticalScrollIndicator={false}>
+        <View style={{alignItems: 'center' }}>
+          <Image source={require('../../assets/icons/logo3.png')} style={styles.logo}/>
+          <LifeStatus />
           <Text style={styles.description}>
             Vamos transformar sua vida {'/n'} em jogo, buscando {'/n'} sempre o melhor nivel.
           </Text>
@@ -22,7 +24,7 @@ export default function Start() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundcolor: 'rgba(21,21,21, 0.98)',
+    backgroundColor: "rgba(21, 21, 21, 0.98)",
   },
   logo: {
     width: 300,
@@ -31,7 +33,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   description: {
-    color: '#FFFFFF',
-    fontSize: ''
-  }
+    color: "#FFFFFF",
+    fontSize: 20,
+    textAlign: "center",
+    marginVertical: 60,
+  },
 });
