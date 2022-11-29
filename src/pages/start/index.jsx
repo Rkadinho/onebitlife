@@ -6,8 +6,10 @@ import LifeStatus from "../../components/common/lifeStatus";
 import DefaultButton from "../../components/common/defaultButton";
 
 export default function Start() {
+  const navigation = useNavigation();
+
   const handleNavAppExplanation = () => {
-    console.log('testando o clique')
+    navigation.navigate('AppExplanation')
   }
 
   return(
