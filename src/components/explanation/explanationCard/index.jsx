@@ -11,7 +11,7 @@ export default function ExplanationCard() {
 
       <View style={styles.explanationContainer}> 
         <Image source={require('../../../assets/icons/educationIcon.png')}
-          styles={styles.icon}
+          style={styles.icon}
         />
         <Text style={styles.description}>
           <Text style={styles.mind}>Mente: </Text> Hábitos para melhorar sua inteligência/sabedoria
@@ -20,7 +20,7 @@ export default function ExplanationCard() {
 
       <View style={styles.explanationContainer}> 
         <Image source={require('../../../assets/icons/moneyIcon.png')}
-          styles={styles.icon}
+          style={styles.icon}
         />
         <Text style={styles.description}>
           <Text style={styles.money}>Financeiro: </Text> Hábitos para te ajudar com controle financeiro
@@ -29,7 +29,7 @@ export default function ExplanationCard() {
 
       <View style={styles.explanationContainer}> 
         <Image source={require('../../../assets/icons/bodyIcon.png')}
-          styles={styles.icon}
+          style={styles.icon}
         />
         <Text style={styles.description}>
           <Text style={styles.body}>Corpo: </Text> Hábitos para te deixar mais saudável e forte
@@ -38,7 +38,7 @@ export default function ExplanationCard() {
 
       <View style={styles.explanationContainer}> 
         <Image source={require('../../../assets/icons/funIcon.png')}
-          styles={styles.icon}
+          style={styles.icon}
         />
         <Text style={styles.description}>
           <Text style={styles.fun}>Humor: </Text> Hábitos para controlar o stress e aumentar felicidade
@@ -51,24 +51,24 @@ export default function ExplanationCard() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#151515",
-    width: 350,
+    width: 360,
     borderRadius: 25,
-    padding: 30,
+    padding: 30
   },
   title: {
     fontWeight: "bold",
     color: "white",
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 16
   },
   explanationContainer: {
     flexDirection: "row",
-    marginTop: 30,
+    marginTop: 30
   },
   icon: {
     width: 40,
     height: 40,
-    marginRight: 5,
+    marginRight: 5
   },
   mind: {
     color: "#90B7F3",

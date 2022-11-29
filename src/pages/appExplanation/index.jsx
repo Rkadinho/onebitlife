@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginVertical: 40,
+    marginTop: 85
   },
   descriptionCta: {
     color: 'white',
