@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: 40,
+    height: 40,
     marginRight: 5,
   },
   mind: {
