@@ -66,7 +66,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   icon: {
-
+    width: 20,
+    height: 20,
+    marginRight: 5,
   },
   mind: {
     color: "#90B7F3",
