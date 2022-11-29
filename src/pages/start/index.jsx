@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 300,
-    height: 60,
-    marginTop: 60,
+    height: 50,
+    marginTop: 100,
     marginBottom: 20,
   },
   description: {
