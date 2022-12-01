@@ -9,12 +9,20 @@ import {
   ScrollView,
   Alert
 } from "react-native";
+
 import SelectHabit from "../../components/habitPage/selectHabit";
+import SelectFrequency from "../../components/habitPage/selectFrenquency";
+import Notification from "../../components/habitPage/notification";
+import TimeDatePicker from "../../components/habitPage/timeDataPicker";
 
 export default function HabitPage({ route }) {
   const navigation = useNavigation();
 
   const [habitInput, setHabitInput] = useState();
+  const [frequencyInput, setFrequencyInput] = useState();
+  const [notificationToggle, setNotificationToggle] = useState();
+  const [dayNotification, setDayNotification] = useState();
+  const [timeNotification, setTimeNotification] = useState();
   const { create, habit } = route.params;
 
   return(
@@ -38,6 +46,28 @@ export default function HabitPage({ route }) {
             </View>
             <Text style={styles.inputText}>Hábito</Text>
             <SelectHabit habit={habit} habitInput={setHabitInput} />
+            <Text style={styles.inputText}>Frequência</Text>
+            <SelectFrequency
+              habitFrequency={habit?.habitFrequency}
+              frequencyInput={setFrequencyInput}
+            />
+            {frequencyInput === "Mensal" ? null : (
+              <Notification
+                notificationToggle={notificationToggle}
+                setNotificationToggle={setNotificationToggle}
+              />
+            )}
+            {notificationToggle ? (
+              frequencyInput === "Mensal" ? null : (
+                <TimeDatePicker
+                  frequency={frequencyInput}
+                  dayNotification={dayNotification}
+                  timeNotification={timeNotification}
+                  setDayNotification={setDayNotification}
+                  setTimeNotification={setTimeNotification}
+                />
+              )
+            ) : null}
           </View>
         </View>
       </ScrollView>
