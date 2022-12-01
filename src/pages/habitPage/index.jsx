@@ -10,7 +10,7 @@ import {
   Alert
 } from "react-native";
 
-export default function HabitPage() {
+export default function HabitPage({ route }) {
   const navigation = useNavigation();
 
   const { create, habit } = route.params;
@@ -24,14 +24,20 @@ export default function HabitPage() {
             onPress={() => navigation.goBack()}
           >
             <Image
-              ource={require("../../assets/icons/arrowBack.png")}
+              source={require("../../assets/icons/arrowBack.png")}
               style={styles.arrowBack}
             />
           </TouchableOpacity>
-          <View style={styles.mainContent}></View>
+          <View style={styles.mainContent}>
+            <Text style={styles.title}>Configurações {"\n"} de hábito</Text>
+            <Text style={styles.inputText}>Área</Text>
+            <View style={styles.inputContainer}>
+              <Text style={styles.area}>{habit?.habitArea}</Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
-  </View>
+    </View>
   );
 }
 
