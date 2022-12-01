@@ -1,5 +1,10 @@
-import AllPages from "./allPages";
+import { useState } from "react";
 
-export default function Routes(){
-  return <AllPages />
+import AllPages from "./allPages";
+import HomePage from "./homePage";
+
+export default function Routes() {
+  const [showHome, setShowHome] = useState("false");
+
+  return <>{showHome === "true" ? <HomePage /> : <AllPages />}</>;
 }
