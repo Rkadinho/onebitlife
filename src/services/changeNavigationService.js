@@ -8,6 +8,7 @@ db.transaction((tx) => {
       console.log(error);
     }
   );
+
 });
 
 const setShowHome = (obj) => {
