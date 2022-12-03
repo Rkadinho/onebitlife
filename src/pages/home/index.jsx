@@ -40,6 +40,21 @@ export default function Home({ route }) {
       setFunHabit(fun[0]);
     });
 
+    if (excludeArea) {
+      if (excludeArea == "Mente") {
+        setMindHabit(null);
+      }
+      if (excludeArea == "Financeiro") {
+        setMoneyHabit(null);
+      }
+      if (excludeArea == "Corpo") {
+        setBodyHabit(null);
+      }
+      if (excludeArea == "Humor") {
+        setFunHabit(null);
+      }
+    }
+
     ChangeNavigationService.checkShowHome(1)
     .then((showHome) => {
       const formDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
@@ -50,21 +65,6 @@ export default function Home({ route }) {
     })
       .catch((err) => console.log(err));
   }, [route.params]);
-
-  if (excludeArea) {
-    if (excludeArea == "Mente") {
-      setMindHabit(null);
-    }
-    if (excludeArea == "Financeiro") {
-      setMoneyHabit(null);
-    }
-    if (excludeArea == "Corpo") {
-      setBodyHabit(null);
-    }
-    if (excludeArea == "Humor") {
-      setFunHabit(null);
-    }
-  }
 
   return(
     <View style={styles.container}>

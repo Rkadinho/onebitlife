@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   View,
@@ -9,6 +9,7 @@ import {
   ScrollView,
   Alert
 } from "react-native";
+import * as Notifications from "expo-notifications";
 
 import SelectHabit from "../../components/habitPage/selectHabit";
 import SelectFrequency from "../../components/habitPage/selectFrenquency";
@@ -17,6 +18,15 @@ import TimeDatePicker from "../../components/habitPage/timeDataPicker";
 import UpdateExcludeButtons from "../../components/habitPage/updateExludeButtons";
 import DefaultButton from "../../components/common/defaultButton";
 import HabitsService from "../../services/habitService";
+import NotificationService from '../../services/notificationService';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function HabitPage({ route }) {
   const navigation = useNavigation();
@@ -26,6 +36,11 @@ export default function HabitPage({ route }) {
   const [notificationToggle, setNotificationToggle] = useState();
   const [dayNotification, setDayNotification] = useState();
   const [timeNotification, setTimeNotification] = useState();
+  const [notification, setNotification] = useState(false);
+
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
   const { create, habit } = route.params;
 
   const habitCreated = new Date();
@@ -57,6 +72,14 @@ export default function HabitPage({ route }) {
         "Você precisa dizer a frequência e o horário da notificação!"
       );
     } else {
+      if (notificationToggle) {
+        NotificationService.createNotification(
+        habitInput,
+        frequencyInput,
+        dayNotification,
+        timeNotification
+        );
+      }
       HabitsService.createHabit({
         habitArea: habit?.habitArea,
         habitName: habitInput,
@@ -78,6 +101,36 @@ export default function HabitPage({ route }) {
     }
   }
 
+  useEffect(() => {
+    if (habit?.habitHasNotification == 1) {
+      setNotificationToggle(true);
+      setDayNotification(habit?.habitNotificationFrequency);
+      setTimeNotification(habit?.habitNotificationTime);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (notificationToggle === false) {
+      setTimeNotification(null);
+      setDayNotification(null);
+    }
+  }, [notificationToggle]);
+
+  useEffect(() => {
+    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
+      setNotification(notification);
+    });
+  
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
+      console.log(response);
+    });
+  
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
   function handleUpdateHabit() {
     if (notificationToggle === true && !dayNotification && !timeNotification) {
       Alert.alert("Você precisa colocar a frequência e horário da notificação");
@@ -93,9 +146,15 @@ export default function HabitPage({ route }) {
       }).then(() => {
         Alert.alert("Sucesso na atualização do hábito");
         if (!notificationToggle) {
-        
+          NotificationService.deleteNotification(habit?.habitName);
         } else {
-     
+          NotificationService.deleteNotification(habit?.habitName);
+          NotificationService.createNotification(
+            habitInput,
+            frequencyInput,
+            dayNotification,
+            timeNotification
+          );
         }
         navigation.navigate("Home", {
           updatedHabit: `Updated in ${habit?.habitArea}`,
